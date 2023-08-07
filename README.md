@@ -2,7 +2,7 @@
 
 [pgvector](https://github.com/pgvector/pgvector) examples for Dart
 
-Supports [postgres](https://github.com/isoos/postgresql-dart)
+Supports the [postgres](https://github.com/isoos/postgresql-dart) package
 
 [![Build Status](https://github.com/pgvector/pgvector-dart/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-dart/actions)
 
