@@ -26,7 +26,11 @@ Insert vectors
 ```dart
 await connection.execute(
     "INSERT INTO items (embedding) VALUES (@a), (@b), (@c)",
-    substitutionValues: {"a": "[1,1,1]", "b": "[2,2,2]", "c": "[1,1,2]"});
+    substitutionValues: {
+      "a": [1, 1, 1].toString(),
+      "b": [2, 2, 2].toString(),
+      "c": [1, 1, 2].toString()
+    });
 ```
 
 Get the nearest neighbors
@@ -34,7 +38,9 @@ Get the nearest neighbors
 ```dart
 List<List<dynamic>> results = await connection.query(
     "SELECT id, embedding::text FROM items ORDER BY embedding <-> @embedding LIMIT 5",
-    substitutionValues: {"embedding": "[1,1,1]"});
+    substitutionValues: {
+      "embedding": [1, 1, 1].toString()
+    });
 for (final row in results) {
   print(row[0]);
   print(row[1]);
