@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:postgres/postgres.dart';
 import 'package:test/test.dart';
@@ -30,7 +31,7 @@ void main() {
         });
     for (final row in results) {
       print(row[0]);
-      print(row[1]);
+      print(jsonDecode(row[1]));
     }
   });
 }

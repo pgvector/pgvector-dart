@@ -43,7 +43,7 @@ List<List<dynamic>> results = await connection.query(
     });
 for (final row in results) {
   print(row[0]);
-  print(row[1]);
+  print(jsonDecode(row[1]));
 }
 ```
 
