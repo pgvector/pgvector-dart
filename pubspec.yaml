@@ -1,0 +1,14 @@
+name: pgvector
+description: pgvector examples for Dart.
+version: 0.1.0
+repository: https://github.com/pgvector/pgvector-dart
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  postgres: ^2.6.2
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.21.0
