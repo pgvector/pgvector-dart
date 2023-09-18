@@ -14,6 +14,12 @@ Follow the instructions for your database library:
 
 ## postgres
 
+Enable the extension
+
+```dart
+await connection.execute("CREATE EXTENSION IF NOT EXISTS vector");
+```
+
 Create a table
 
 ```dart
