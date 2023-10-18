@@ -33,5 +33,8 @@ void main() {
       print(row[0]);
       print(pgvector.decode(row[1]));
     }
+
+    await connection
+        .execute("CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)");
   });
 }
