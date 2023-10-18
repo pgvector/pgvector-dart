@@ -11,7 +11,7 @@ class Pgvector {
 
   // decode from binary
   // TODO find a way to make encode/decode consistent
-  List<double> decode(dynamic? input) {
+  List<double> decode(dynamic input) {
     // PostgresBinaryDecoder in the postgres package
     // tries to decode as utf8 for unknown types
     // sometimes it succeeds, other times it fails
