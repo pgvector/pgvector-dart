@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
+import 'package:pgvector/pgvector.dart';
 import 'package:postgres/postgres.dart';
 import 'package:test/test.dart';
 
@@ -19,19 +19,19 @@ void main() {
     await connection.execute(
         "INSERT INTO items (embedding) VALUES (@a), (@b), (@c)",
         substitutionValues: {
-          "a": [1, 1, 1].toString(),
-          "b": [2, 2, 2].toString(),
-          "c": [1, 1, 2].toString()
+          "a": pgvector.encode([1, 1, 1]),
+          "b": pgvector.encode([2, 2, 2]),
+          "c": pgvector.encode([1, 1, 2])
         });
 
     List<List<dynamic>> results = await connection.query(
-        "SELECT id, embedding::text FROM items ORDER BY embedding <-> @embedding LIMIT 5",
+        "SELECT id, embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5",
         substitutionValues: {
-          "embedding": [1, 1, 1].toString()
+          "embedding": pgvector.encode([1, 1, 1])
         });
     for (final row in results) {
       print(row[0]);
-      print(jsonDecode(row[1]));
+      print(pgvector.decode(row[1]));
     }
   });
 }
