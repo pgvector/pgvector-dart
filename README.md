@@ -35,8 +35,7 @@ await connection.execute("CREATE EXTENSION IF NOT EXISTS vector");
 Create a table
 
 ```dart
-await connection.execute(
-    "CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))");
+await connection.execute("CREATE TABLE items (id bigserial PRIMARY KEY, embedding vector(3))");
 ```
 
 Insert vectors
