@@ -4,7 +4,7 @@
 
 Supports the [postgres](https://github.com/isoos/postgresql-dart) package
 
-[![Build Status](https://github.com/pgvector/pgvector-dart/workflows/build/badge.svg?branch=master)](https://github.com/pgvector/pgvector-dart/actions)
+[![Build Status](https://github.com/pgvector/pgvector-dart/actions/workflows/build.yml/badge.svg)](https://github.com/pgvector/pgvector-dart/actions)
 
 ## Getting Started
 
