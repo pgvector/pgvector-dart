@@ -67,9 +67,9 @@ for (final row in results) {
 Add an approximate index
 
 ```dart
-await connection.execute("CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)");
-// or
 await connection.execute("CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)");
+// or
+await connection.execute("CREATE INDEX ON items USING ivfflat (embedding vector_l2_ops) WITH (lists = 100)");
 ```
 
 Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distance
