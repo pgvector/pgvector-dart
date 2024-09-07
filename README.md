@@ -42,8 +42,8 @@ Insert vectors
 
 ```dart
 await connection.execute(
-    "INSERT INTO items (embedding) VALUES (@a), (@b), (@c)",
-    substitutionValues: {
+    Sql.named("INSERT INTO items (embedding) VALUES (@a), (@b), (@c)"),
+    parameters: {
       "a": pgvector.encode([1, 1, 1]),
       "b": pgvector.encode([2, 2, 2]),
       "c": pgvector.encode([1, 1, 2])
@@ -53,14 +53,14 @@ await connection.execute(
 Get the nearest neighbors
 
 ```dart
-List<List<dynamic>> results = await connection.query(
-    "SELECT id, embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5",
-    substitutionValues: {
+List<List<dynamic>> results = await connection.execute(
+    Sql.named("SELECT id, embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5"),
+    parameters: {
       "embedding": pgvector.encode([1, 1, 1])
     });
 for (final row in results) {
   print(row[0]);
-  print(pgvector.decode(row[1]));
+  print(pgvector.decode(row[1].bytes));
 }
 ```
 
