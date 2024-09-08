@@ -5,7 +5,8 @@ class Vector {
 
   const Vector(this.vec);
 
-  factory Vector.fromBinary(ByteData bdata) {
+  factory Vector.fromBinary(Uint8List bytes) {
+    var bdata = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
     var dim = bdata.getUint16(0);
     var unused = bdata.getUint16(2);
     if (unused != 0) {

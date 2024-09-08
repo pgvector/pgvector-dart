@@ -21,8 +21,7 @@ class Pgvector {
     if (input is String) {
       input = Uint8List.fromList(utf8.encode(input));
     }
-    var bdata = new ByteData.view(input.buffer, input.offsetInBytes);
-    return Vector.fromBinary(bdata).toList();
+    return Vector.fromBinary(input).toList();
   }
 }
 
