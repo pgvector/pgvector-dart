@@ -19,7 +19,7 @@ class Pgvector {
     // sometimes it succeeds, other times it fails
     // so need to handle both cases
     if (input is String) {
-      input = Uint8List.fromList(utf8.encode(input));
+      input = utf8.encode(input);
     }
     return Vector.fromBinary(input).toList();
   }
