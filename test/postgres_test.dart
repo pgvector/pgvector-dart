@@ -22,20 +22,20 @@ void main() {
     await connection.execute(
         Sql.named("INSERT INTO items (embedding) VALUES (@a), (@b), (@c)"),
         parameters: {
-          "a": pgvector.encode([1, 1, 1]),
-          "b": pgvector.encode([2, 2, 2]),
-          "c": pgvector.encode([1, 1, 2])
+          "a": Vector([1, 1, 1]).toString(),
+          "b": Vector([2, 2, 2]).toString(),
+          "c": Vector([1, 1, 2]).toString()
         });
 
     List<List<dynamic>> results = await connection.execute(
         Sql.named(
             "SELECT id, embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5"),
         parameters: {
-          "embedding": pgvector.encode([1, 1, 1])
+          "embedding": Vector([1, 1, 1]).toString()
         });
     for (final row in results) {
       print(row[0]);
-      print(pgvector.decode(row[1].bytes));
+      print(Vector.fromBinary(row[1].bytes));
     }
 
     await connection

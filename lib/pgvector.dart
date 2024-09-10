@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'vector.dart';
+export 'vector.dart' show Vector;
 
 class Pgvector {
   const Pgvector();
