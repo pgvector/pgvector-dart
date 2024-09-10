@@ -1,8 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
-
-import 'halfvec.dart';
-import 'sparsevec.dart';
 import 'vector.dart';
 
 export 'halfvec.dart' show HalfVector;
