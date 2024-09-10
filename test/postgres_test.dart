@@ -21,20 +21,20 @@ void main() {
 
     await connection.execute(
         Sql.named(
-            "INSERT INTO items (embedding, half_embedding, binary_embedding, sparse_embedding) VALUES (@a, @d, @g, @j), (@b, @e, @h, @k), (@c, @f, @i, @l)"),
+            "INSERT INTO items (embedding, half_embedding, binary_embedding, sparse_embedding) VALUES (@embedding1, @half_embedding1, @binary_embedding1, @sparse_embedding1), (@embedding2, @half_embedding2, @binary_embedding2, @sparse_embedding2), (@embedding3, @half_embedding3, @binary_embedding3, @sparse_embedding3)"),
         parameters: {
-          "a": Vector([1, 1, 1]).toString(),
-          "b": Vector([2, 2, 2]).toString(),
-          "c": Vector([1, 1, 2]).toString(),
-          "d": HalfVector([1, 1, 1]).toString(),
-          "e": HalfVector([2, 2, 2]).toString(),
-          "f": HalfVector([1, 1, 2]).toString(),
-          "g": "000",
-          "h": "101",
-          "i": "111",
-          "j": SparseVector([1, 1, 1]).toString(),
-          "k": SparseVector([2, 2, 2]).toString(),
-          "l": SparseVector([1, 1, 2]).toString()
+          "embedding1": Vector([1, 1, 1]).toString(),
+          "embedding2": Vector([2, 2, 2]).toString(),
+          "embedding3": Vector([1, 1, 2]).toString(),
+          "half_embedding1": HalfVector([1, 1, 1]).toString(),
+          "half_embedding2": HalfVector([2, 2, 2]).toString(),
+          "half_embedding3": HalfVector([1, 1, 2]).toString(),
+          "binary_embedding1": "000",
+          "binary_embedding2": "101",
+          "binary_embedding3": "111",
+          "sparse_embedding1": SparseVector([1, 1, 1]).toString(),
+          "sparse_embedding2": SparseVector([2, 2, 2]).toString(),
+          "sparse_embedding3": SparseVector([1, 1, 2]).toString()
         });
 
     List<List<dynamic>> results = await connection.execute(
