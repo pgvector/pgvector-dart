@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'vector.dart';
+import 'src/vector.dart';
 
-export 'halfvec.dart' show HalfVector;
-export 'sparsevec.dart' show SparseVector;
-export 'vector.dart' show Vector;
+export 'src/halfvec.dart' show HalfVector;
+export 'src/sparsevec.dart' show SparseVector;
+export 'src/vector.dart' show Vector;
 
 class Pgvector {
   const Pgvector();
