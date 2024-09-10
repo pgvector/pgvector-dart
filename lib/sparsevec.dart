@@ -39,7 +39,7 @@ class SparseVector {
 
     var values = <double>[];
     for (var i = 0; i < nnz; i++) {
-      values.add(buf.getFloat32(12 + 4 * nnz + i * 4));
+      values.add(buf.getFloat32(12 + nnz * 4 + i * 4));
     }
 
     return SparseVector._(dimensions, indices, values);
