@@ -1,0 +1,10 @@
+name: example
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+  http: ^1.2.2
+  pgvector:
+    path: ../..
+  postgres: ^3.0.0

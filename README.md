@@ -18,9 +18,10 @@ And follow the instructions for your database library:
 
 - [postgres](#postgres)
 
-Or check out an example:
+Or check out some examples:
 
 - [Embeddings](https://github.com/pgvector/pgvector-dart/blob/master/examples/openai/example.dart) with OpenAI
+- [Binary embeddings](https://github.com/pgvector/pgvector-dart/blob/master/examples/cohere/example.dart) with Cohere
 
 ## postgres
 
