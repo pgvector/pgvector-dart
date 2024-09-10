@@ -23,23 +23,23 @@ class SparseVector {
   }
 
   factory SparseVector.fromBinary(Uint8List bytes) {
-    var bdata = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
-    var dimensions = bdata.getInt32(0);
-    var nnz = bdata.getInt32(4);
+    var buf = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
+    var dimensions = buf.getInt32(0);
+    var nnz = buf.getInt32(4);
 
-    var unused = bdata.getInt32(8);
+    var unused = buf.getInt32(8);
     if (unused != 0) {
       throw FormatException('expected unused to be 0');
     }
 
     var indices = <int>[];
     for (var i = 0; i < nnz; i++) {
-      indices.add(bdata.getInt32(12 + i * 4));
+      indices.add(buf.getInt32(12 + i * 4));
     }
 
     var values = <double>[];
     for (var i = 0; i < nnz; i++) {
-      values.add(bdata.getFloat32(12 + 4 * nnz + i * 4));
+      values.add(buf.getFloat32(12 + 4 * nnz + i * 4));
     }
 
     return SparseVector._(dimensions, indices, values);
