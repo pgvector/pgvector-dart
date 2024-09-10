@@ -22,6 +22,16 @@ class SparseVector {
     return SparseVector._(dimensions, indices, values);
   }
 
+  factory SparseVector.fromMap(Map<int, double> map, int dimensions) {
+    var elements = map.entries.where((v) => v.value != 0).toList();
+    elements.sort((a, b) => a.key.compareTo(b.key));
+
+    var indices = elements.map((v) => v.key).toList();
+    var values = elements.map((v) => v.value).toList();
+
+    return SparseVector._(dimensions, indices, values);
+  }
+
   factory SparseVector.fromBinary(Uint8List bytes) {
     var buf = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
     var dimensions = buf.getInt32(0);
