@@ -1,6 +1,6 @@
 ## 0.1.1 (unreleased)
 
-- Added `Vector`, `HalfVector`, and `SparseVector` classes
+- Added `Vector`, `HalfVector`, `Bit`, and `SparseVector` classes
 
 ## 0.1.0 (2023-10-17)
 

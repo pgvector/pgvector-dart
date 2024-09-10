@@ -39,13 +39,15 @@ void main() {
 
     List<List<dynamic>> results = await connection.execute(
         Sql.named(
-            'SELECT id, embedding, sparse_embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5'),
+            'SELECT id, embedding, binary_embedding, sparse_embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5'),
         parameters: {
           'embedding': Vector([1, 1, 1]).toString()
         });
     expect(results.map((r) => r[0]), equals([1, 3, 2]));
     expect(Vector.fromBinary(results[1][1].bytes), equals(Vector([1, 1, 2])));
-    expect(SparseVector.fromBinary(results[1][2].bytes),
+    expect(
+        Bit.fromBinary(results[2][2].bytes), equals(Bit([true, false, true])));
+    expect(SparseVector.fromBinary(results[1][3].bytes),
         equals(SparseVector([1, 1, 2])));
 
     await connection

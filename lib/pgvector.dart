@@ -1,3 +1,4 @@
+export 'src/bit.dart' show Bit;
 export 'src/halfvec.dart' show HalfVector;
 export 'src/pgvector.dart' show pgvector;
 export 'src/sparsevec.dart' show SparseVector;
