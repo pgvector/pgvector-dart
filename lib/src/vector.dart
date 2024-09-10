@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'utils.dart';
 
 class Vector {
   final List<double> _vec;
@@ -30,4 +31,11 @@ class Vector {
   String toString() {
     return _vec.toString();
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is Vector && listEquals(other._vec, _vec);
+
+  @override
+  int get hashCode => _vec.hashCode;
 }

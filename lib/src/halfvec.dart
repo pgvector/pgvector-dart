@@ -1,3 +1,5 @@
+import 'utils.dart';
+
 class HalfVector {
   final List<double> _vec;
 
@@ -11,4 +13,11 @@ class HalfVector {
   String toString() {
     return _vec.toString();
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is HalfVector && listEquals(other._vec, _vec);
+
+  @override
+  int get hashCode => _vec.hashCode;
 }

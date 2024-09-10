@@ -19,4 +19,13 @@ void main() {
     expect(vec.indices, equals([0, 2, 4]));
     expect(vec.values, equals([1, 2, 3]));
   });
+
+  test('equals', () {
+    var a = SparseVector([1, 2, 3]);
+    var b = SparseVector([1, 2, 3]);
+    var c = SparseVector([1, 2, 4]);
+
+    expect(a, equals(b));
+    expect(a, isNot(equals(c)));
+  });
 }

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'utils.dart';
 
 class SparseVector {
   final int dimensions;
@@ -70,4 +71,14 @@ class SparseVector {
     ].join(',');
     return '{${elements}}/${dimensions}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is SparseVector &&
+      other.dimensions == dimensions &&
+      listEquals(other.indices, indices) &&
+      listEquals(other.values, values);
+
+  @override
+  int get hashCode => Object.hash(dimensions, indices, values);
 }
