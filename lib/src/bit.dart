@@ -19,7 +19,7 @@ class Bit {
   factory Bit.fromBinary(Uint8List bytes) {
     var buf = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
     var length = buf.getInt32(0);
-    return Bit._(length, bytes.sublist(4));
+    return Bit._(length, Uint8List.sublistView(bytes, 4));
   }
 
   List<bool> toList() {
