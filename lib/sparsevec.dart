@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class SparseVector {
   final int dimensions;
   final List<int> indices;
@@ -15,6 +17,29 @@ class SparseVector {
         values.add(value[i]);
       }
     }
+    return SparseVector._(dimensions, indices, values);
+  }
+
+  factory SparseVector.fromBinary(Uint8List bytes) {
+    var bdata = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
+    var dimensions = bdata.getInt32(0);
+    var nnz = bdata.getInt32(4);
+
+    var unused = bdata.getInt32(8);
+    if (unused != 0) {
+      throw FormatException('expected unused to be 0');
+    }
+
+    var indices = <int>[];
+    for (var i = 0; i < nnz; i++) {
+      indices.add(bdata.getInt32(12 + i * 4));
+    }
+
+    var values = <double>[];
+    for (var i = 0; i < nnz; i++) {
+      values.add(bdata.getFloat32(12 + 4 * nnz + i * 4));
+    }
+
     return SparseVector._(dimensions, indices, values);
   }
 

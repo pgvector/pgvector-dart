@@ -36,13 +36,14 @@ void main() {
 
     List<List<dynamic>> results = await connection.execute(
         Sql.named(
-            "SELECT id, embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5"),
+            "SELECT id, embedding, sparse_embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5"),
         parameters: {
           "embedding": Vector([1, 1, 1]).toString()
         });
     for (final row in results) {
       print(row[0]);
       print(Vector.fromBinary(row[1].bytes));
+      print(SparseVector.fromBinary(row[2].bytes));
     }
 
     await connection
