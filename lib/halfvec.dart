@@ -1,14 +1,14 @@
 class HalfVector {
-  final List<double> vec;
+  final List<double> _vec;
 
-  const HalfVector(this.vec);
+  const HalfVector(this._vec);
 
   List<double> toList() {
-    return vec;
+    return _vec;
   }
 
   @override
   String toString() {
-    return vec.toString();
+    return _vec.toString();
   }
 }

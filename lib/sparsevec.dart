@@ -46,7 +46,7 @@ class SparseVector {
   }
 
   List<double> toList() {
-    var vec = List<double>.filled(this.dimensions, 0.0);
+    var vec = List<double>.filled(dimensions, 0.0);
     for (var i = 0; i < indices.length; i++) {
       vec[indices[i]] = values[i];
     }
@@ -58,6 +58,6 @@ class SparseVector {
     var elements = [
       for (var i = 0; i < indices.length; i++) '${indices[i] + 1}:${values[i]}'
     ].join(',');
-    return '{${elements}}/${this.dimensions}';
+    return '{${elements}}/${dimensions}';
   }
 }

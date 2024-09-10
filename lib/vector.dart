@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
 class Vector {
-  final List<double> vec;
+  final List<double> _vec;
 
-  const Vector(this.vec);
+  const Vector(this._vec);
 
   factory Vector.fromBinary(Uint8List bytes) {
     var bdata = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
@@ -23,11 +23,11 @@ class Vector {
   }
 
   List<double> toList() {
-    return vec;
+    return _vec;
   }
 
   @override
   String toString() {
-    return vec.toString();
+    return _vec.toString();
   }
 }
