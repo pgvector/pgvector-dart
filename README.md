@@ -18,6 +18,10 @@ And follow the instructions for your database library:
 
 - [postgres](#postgres)
 
+Or check out an example:
+
+- [Embeddings](https://github.com/pgvector/pgvector-dart/blob/master/examples/openai/example.dart) with OpenAI
+
 ## postgres
 
 Import the library
@@ -96,4 +100,12 @@ git clone https://github.com/pgvector/pgvector-dart.git
 cd pgvector-dart
 createdb pgvector_dart_test
 dart test
+```
+
+To run an example:
+
+```sh
+cd examples/openai
+createdb pgvector_example
+dart run example.dart
 ```
