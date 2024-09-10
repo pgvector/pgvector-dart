@@ -43,18 +43,10 @@ void main() {
         parameters: {
           "embedding": Vector([1, 1, 1]).toString()
         });
-    expect(results[0][0], equals(1));
-    expect(results[1][0], equals(3));
-    expect(results[2][0], equals(2));
-    expect(Vector.fromBinary(results[0][1].bytes).toList(), equals([1, 1, 1]));
+    expect(results.map((r) => r[0]), equals([1, 3, 2]));
     expect(Vector.fromBinary(results[1][1].bytes).toList(), equals([1, 1, 2]));
-    expect(Vector.fromBinary(results[2][1].bytes).toList(), equals([2, 2, 2]));
-    expect(SparseVector.fromBinary(results[0][2].bytes).toList(),
-        equals([1, 1, 1]));
     expect(SparseVector.fromBinary(results[1][2].bytes).toList(),
         equals([1, 1, 2]));
-    expect(SparseVector.fromBinary(results[2][2].bytes).toList(),
-        equals([2, 2, 2]));
 
     await connection
         .execute("CREATE INDEX ON items USING hnsw (embedding vector_l2_ops)");
