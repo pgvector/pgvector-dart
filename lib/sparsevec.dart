@@ -43,6 +43,14 @@ class SparseVector {
     return SparseVector._(dimensions, indices, values);
   }
 
+  List<double> toList() {
+    var vec = List<double>.filled(this.dimensions, 0.0);
+    for (var i = 0; i < indices.length; i++) {
+      vec[indices[i]] = values[i];
+    }
+    return vec;
+  }
+
   @override
   String toString() {
     var elements = [
