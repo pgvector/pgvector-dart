@@ -22,6 +22,19 @@ class Bit {
     return Bit._(length, bytes.sublist(4));
   }
 
+  Uint8List toBinary() {
+    var bytes = new Uint8List(4 + ((_len + 7) / 8).toInt());
+    var buf = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
+
+    buf.setInt32(0, _len);
+
+    for (var i = 0; i < _data.length; i++) {
+      buf.setUint8(4 + i, _data[i]);
+    }
+
+    return bytes;
+  }
+
   List<bool> toList() {
     var vec = <bool>[];
     for (var i = 0; i < _len; i++) {
