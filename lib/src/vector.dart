@@ -23,6 +23,21 @@ class Vector {
     return Vector(vec);
   }
 
+  Uint8List toBinary() {
+    var dim = _vec.length;
+    var bytes = new Uint8List(4 + 4 * dim);
+    var buf = new ByteData.view(bytes.buffer, bytes.offsetInBytes);
+
+    buf.setInt16(0, dim);
+    buf.setInt16(2, 0);
+
+    for (var i = 0; i < dim; i++) {
+      buf.setFloat32(4 + i * 4, _vec[i]);
+    }
+
+    return bytes;
+  }
+
   List<double> toList() {
     return _vec;
   }
