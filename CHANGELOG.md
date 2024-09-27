@@ -1,4 +1,4 @@
-## 0.2.0 (unreleased)
+## 0.2.0 (2024-09-27)
 
 - Added `Vector`, `HalfVector`, `Bit`, and `SparseVector` classes
 - Added `pgvectorEncoder` function
