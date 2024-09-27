@@ -31,6 +31,14 @@ Import the library
 import 'package:pgvector/pgvector.dart';
 ```
 
+Add the encoder
+
+```dart
+var connection = await Connection.open(endpoint,
+    settings: ConnectionSettings(
+        typeRegistry: TypeRegistry(encoders: [pgvectorEncoder])));
+```
+
 Enable the extension
 
 ```dart
@@ -49,9 +57,9 @@ Insert vectors
 await connection.execute(
     Sql.named('INSERT INTO items (embedding) VALUES (@a), (@b), (@c)'),
     parameters: {
-      'a': pgvector.encode([1, 1, 1]),
-      'b': pgvector.encode([2, 2, 2]),
-      'c': pgvector.encode([1, 1, 2])
+      'a': Vector([1, 1, 1]),
+      'b': Vector([2, 2, 2]),
+      'c': Vector([1, 1, 2])
     });
 ```
 
@@ -61,11 +69,11 @@ Get the nearest neighbors
 List<List<dynamic>> results = await connection.execute(
     Sql.named('SELECT id, embedding FROM items ORDER BY embedding <-> @embedding LIMIT 5'),
     parameters: {
-      'embedding': pgvector.encode([1, 1, 1])
+      'embedding': Vector([1, 1, 1])
     });
 for (final row in results) {
   print(row[0]);
-  print(pgvector.decode(row[1].bytes));
+  print(Vector.fromBinary(row[1].bytes));
 }
 ```
 

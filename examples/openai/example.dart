@@ -31,7 +31,9 @@ void main() async {
           port: 5432,
           database: 'pgvector_example',
           username: Platform.environment['USER']),
-      settings: ConnectionSettings(sslMode: SslMode.disable));
+      settings: ConnectionSettings(
+          sslMode: SslMode.disable,
+          typeRegistry: TypeRegistry(encoders: [pgvectorEncoder])));
 
   await connection.execute('CREATE EXTENSION IF NOT EXISTS vector');
 
@@ -52,7 +54,7 @@ void main() async {
             'INSERT INTO documents (content, embedding) VALUES (@content, @embedding)'),
         parameters: {
           'content': input[i],
-          'embedding': pgvector.encode(List<double>.from(embeddings[i]))
+          'embedding': Vector(List<double>.from(embeddings[i]))
         });
   }
 
