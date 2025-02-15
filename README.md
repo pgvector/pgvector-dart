@@ -22,6 +22,7 @@ Or check out some examples:
 
 - [Embeddings](https://github.com/pgvector/pgvector-dart/blob/master/examples/openai/example.dart) with OpenAI
 - [Binary embeddings](https://github.com/pgvector/pgvector-dart/blob/master/examples/cohere/example.dart) with Cohere
+- [Hybrid search](https://github.com/pgvector/pgvector-dart/blob/master/examples/hybrid/example.dart) with Ollama (Reciprocal Rank Fusion)
 - [Sparse search](https://github.com/pgvector/pgvector-dart/blob/master/examples/sparse/example.dart) with Text Embeddings Inference
 
 ## postgres
