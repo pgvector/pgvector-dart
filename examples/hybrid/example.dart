@@ -11,8 +11,7 @@ Future<List<List<double>>> fetchEmbeddings(List<String> input) async {
 
   var response = await http.post(url, body: jsonEncode(data), headers: headers);
   var embeddings = jsonDecode(response.body)['embeddings'];
-  return Future<List<List<double>>>.value(
-      <List<double>>[for (var v in embeddings) List<double>.from(v)]);
+  return Future.value([for (var v in embeddings) List<double>.from(v)]);
 }
 
 void main() async {

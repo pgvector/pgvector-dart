@@ -20,7 +20,7 @@ Future<List<dynamic>> fetchEmbeddings(List<String> inputs) async {
   var embeddings = jsonDecode(response.body)
       .map((v) => <int, double>{for (var e in v) e['index']: e['value']})
       .toList();
-  return Future<List<dynamic>>.value(embeddings);
+  return Future.value(embeddings);
 }
 
 void main() async {
