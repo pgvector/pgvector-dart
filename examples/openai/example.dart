@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:pgvector/pgvector.dart';
 import 'package:postgres/postgres.dart';
 
-Future<List<dynamic>> fetchEmbeddings(List<String> input, String apiKey) async {
+Future<List<List<double>>> fetchEmbeddings(
+    List<String> input, String apiKey) async {
   var url = Uri.https('api.openai.com', 'v1/embeddings');
   var headers = {
     'Authorization': 'Bearer ${apiKey}',
@@ -15,7 +16,8 @@ Future<List<dynamic>> fetchEmbeddings(List<String> input, String apiKey) async {
   var response = await http.post(url, body: jsonEncode(data), headers: headers);
   var embeddings =
       jsonDecode(response.body)['data'].map(((v) => v['embedding'])).toList();
-  return Future<List<dynamic>>.value(embeddings);
+  return Future<List<List<double>>>.value(
+      <List<double>>[for (var v in embeddings) List<double>.from(v)]);
 }
 
 void main() async {
@@ -52,10 +54,7 @@ void main() async {
     await connection.execute(
         Sql.named(
             'INSERT INTO documents (content, embedding) VALUES (@content, @embedding)'),
-        parameters: {
-          'content': input[i],
-          'embedding': Vector(List<double>.from(embeddings[i]))
-        });
+        parameters: {'content': input[i], 'embedding': Vector(embeddings[i])});
   }
 
   var documentId = 1;
@@ -64,7 +63,7 @@ void main() async {
           'SELECT content FROM documents WHERE id != @id ORDER BY embedding <=> (SELECT embedding FROM documents WHERE id = @id) LIMIT 5'),
       parameters: {'id': documentId});
   for (final neighbor in neighbors) {
-    print(neighbor);
+    print(neighbor[0]);
   }
 
   await connection.close();

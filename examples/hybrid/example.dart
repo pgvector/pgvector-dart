@@ -4,14 +4,15 @@ import 'package:http/http.dart' as http;
 import 'package:pgvector/pgvector.dart';
 import 'package:postgres/postgres.dart';
 
-Future<List<dynamic>> fetchEmbeddings(List<String> input) async {
+Future<List<List<double>>> fetchEmbeddings(List<String> input) async {
   var url = Uri.http('localhost:11434', 'api/embed');
   var headers = {'Content-Type': 'application/json'};
   var data = {'input': input, 'model': 'nomic-embed-text'};
 
   var response = await http.post(url, body: jsonEncode(data), headers: headers);
   var embeddings = jsonDecode(response.body)['embeddings'];
-  return Future<List<dynamic>>.value(embeddings);
+  return Future<List<List<double>>>.value(
+      <List<double>>[for (var v in embeddings) List<double>.from(v)]);
 }
 
 void main() async {
@@ -43,10 +44,7 @@ void main() async {
     await connection.execute(
         Sql.named(
             'INSERT INTO documents (content, embedding) VALUES (@content, @embedding)'),
-        parameters: {
-          'content': input[i],
-          'embedding': Vector(List<double>.from(embeddings[i]))
-        });
+        parameters: {'content': input[i], 'embedding': Vector(embeddings[i])});
   }
 
   var sql = """
@@ -77,7 +75,7 @@ void main() async {
   var k = 60;
   var result = await connection.execute(Sql.named(sql), parameters: {
     'query': query,
-    'embedding': Vector(List<double>.from(queryEmbedding)),
+    'embedding': Vector(queryEmbedding),
     'k': k
   });
   for (final row in result) {
