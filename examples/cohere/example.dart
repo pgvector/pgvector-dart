@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:pgvector/pgvector.dart';
 import 'package:postgres/postgres.dart';
 
-Future<List<dynamic>> fetchEmbeddings(
+Future<List<dynamic>> embed(
     List<String> texts, String inputType, String apiKey) async {
   var url = Uri.https('api.cohere.com', 'v1/embed');
   var headers = {
@@ -51,7 +51,7 @@ void main() async {
     'The cat is purring',
     'The bear is growling'
   ];
-  var embeddings = await fetchEmbeddings(input, 'search_document', apiKey);
+  var embeddings = await embed(input, 'search_document', apiKey);
   for (var i = 0; i < input.length; i++) {
     await connection.execute(
         Sql.named(
@@ -60,8 +60,7 @@ void main() async {
   }
 
   var query = 'forest';
-  var queryEmbedding =
-      (await fetchEmbeddings([query], 'search_query', apiKey))[0];
+  var queryEmbedding = (await embed([query], 'search_query', apiKey))[0];
   var result = await connection.execute(
       Sql.named(
           'SELECT content FROM documents ORDER BY embedding <~> @embedding LIMIT 5'),

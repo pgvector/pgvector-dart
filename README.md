@@ -118,5 +118,6 @@ To run an example:
 ```sh
 cd examples/openai
 createdb pgvector_example
+dart pub get
 dart run example.dart
 ```

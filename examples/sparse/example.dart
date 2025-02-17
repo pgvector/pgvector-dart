@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:pgvector/pgvector.dart';
 import 'package:postgres/postgres.dart';
 
-Future<List<dynamic>> fetchEmbeddings(List<String> inputs) async {
+Future<List<dynamic>> embed(List<String> inputs) async {
   var url = Uri.http('localhost:3000', 'embed_sparse');
   var headers = {'Content-Type': 'application/json'};
   var data = {'inputs': inputs};
@@ -45,7 +45,7 @@ void main() async {
     'The cat is purring',
     'The bear is growling'
   ];
-  var embeddings = await fetchEmbeddings(input);
+  var embeddings = await embed(input);
   for (var i = 0; i < input.length; i++) {
     await connection.execute(
         Sql.named(
@@ -57,7 +57,7 @@ void main() async {
   }
 
   var query = 'forest';
-  var queryEmbedding = (await fetchEmbeddings([query]))[0];
+  var queryEmbedding = (await embed([query]))[0];
   var result = await connection.execute(
       Sql.named(
           'SELECT content FROM documents ORDER BY embedding <#> @embedding LIMIT 5'),

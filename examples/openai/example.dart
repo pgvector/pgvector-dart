@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:pgvector/pgvector.dart';
 import 'package:postgres/postgres.dart';
 
-Future<List<List<double>>> fetchEmbeddings(
-    List<String> input, String apiKey) async {
+Future<List<List<double>>> embed(List<String> input, String apiKey) async {
   var url = Uri.https('api.openai.com', 'v1/embeddings');
   var headers = {
     'Authorization': 'Bearer ${apiKey}',
@@ -47,8 +46,7 @@ void main() async {
     'The cat is purring',
     'The bear is growling'
   ];
-
-  var embeddings = await fetchEmbeddings(input, apiKey);
+  var embeddings = await embed(input, apiKey);
   for (var i = 0; i < input.length; i++) {
     await connection.execute(
         Sql.named(
@@ -56,13 +54,14 @@ void main() async {
         parameters: {'content': input[i], 'embedding': Vector(embeddings[i])});
   }
 
-  var documentId = 1;
-  var neighbors = await connection.execute(
+  var query = 'forest';
+  var queryEmbedding = (await embed([query], apiKey))[0];
+  var result = await connection.execute(
       Sql.named(
-          'SELECT content FROM documents WHERE id != @id ORDER BY embedding <=> (SELECT embedding FROM documents WHERE id = @id) LIMIT 5'),
-      parameters: {'id': documentId});
-  for (final neighbor in neighbors) {
-    print(neighbor[0]);
+          'SELECT content FROM documents ORDER BY embedding <=> @embedding LIMIT 5'),
+      parameters: {'embedding': Vector(queryEmbedding)});
+  for (final row in result) {
+    print(row[0]);
   }
 
   await connection.close();
