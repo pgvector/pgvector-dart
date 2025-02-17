@@ -20,7 +20,7 @@ Future<List<dynamic>> embed(
 
   var response = await http.post(url, body: jsonEncode(data), headers: headers);
   var embeddings = jsonDecode(response.body)['embeddings']['ubinary']
-      .map((v) => v.map((d) => d.toRadixString(2).padLeft(8, "0")).join())
+      .map((v) => v.map((d) => d.toRadixString(2).padLeft(8, '0')).join())
       .toList();
   return Future<List<dynamic>>.value(embeddings);
 }

@@ -7,7 +7,7 @@ import 'package:postgres/postgres.dart';
 Future<List<List<double>>> embed(List<String> input, String taskType) async {
   // nomic-embed-text uses a task prefix
   // https://huggingface.co/nomic-ai/nomic-embed-text-v1.5
-  input = [for (var v in input) taskType + ": " + v];
+  input = [for (var v in input) taskType + ': ' + v];
 
   var url = Uri.http('localhost:11434', 'api/embed');
   var headers = {'Content-Type': 'application/json'};
@@ -42,7 +42,7 @@ void main() async {
     'The cat is purring',
     'The bear is growling'
   ];
-  var embeddings = await embed(input, "search_document");
+  var embeddings = await embed(input, 'search_document');
   for (var i = 0; i < input.length; i++) {
     await connection.execute(
         Sql.named(
@@ -74,7 +74,7 @@ void main() async {
   LIMIT 5
   """;
   var query = 'growling bear';
-  var queryEmbedding = (await embed([query], "search_query"))[0];
+  var queryEmbedding = (await embed([query], 'search_query'))[0];
   var k = 60;
   var result = await connection.execute(Sql.named(sql), parameters: {
     'query': query,
