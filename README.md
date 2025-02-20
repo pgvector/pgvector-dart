@@ -91,6 +91,102 @@ Use `vector_ip_ops` for inner product and `vector_cosine_ops` for cosine distanc
 
 See a [full example](test/postgres_test.dart)
 
+## Reference
+
+### Vectors
+
+Create a vector from a list
+
+```dart
+var vec = Vector([1, 2, 3]);
+```
+
+Get a list
+
+```dart
+var list = vec.toList();
+```
+
+### Half Vectors
+
+Create a half vector from a list
+
+```dart
+var vec = HalfVector([1, 2, 3]);
+```
+
+Get a list
+
+```dart
+var list = vec.toList();
+```
+
+### Binary Vectors
+
+Create a binary vector from a list
+
+```dart
+var vec = Bit([true, false, true])
+```
+
+Or a string
+
+```dart
+var vec = Bit("101")
+```
+
+Get a list
+
+```dart
+var list = vec.toList();
+```
+
+Get a string
+
+```dart
+var str = vec.toString();
+```
+
+### Sparse Vectors
+
+Create a sparse vector from a list
+
+```dart
+var vec = SparseVector([1, 0, 2, 0, 3, 0]);
+```
+
+Or a map of non-zero elements
+
+```dart
+var vec = SparseVector.fromMap({0: 1.0, 2: 2.0, 4: 3.0}, 6);
+```
+
+Note: Indices start at 0
+
+Get the number of dimensions
+
+```dart
+var dim = vec.dimensions;
+```
+
+Get the indices of non-zero elements
+
+```dart
+var indices = vec.indices;
+```
+
+Get the values of non-zero elements
+
+```dart
+var values = vec.values;
+```
+
+Get a list
+
+```dart
+var list = vec.toList();
+```
+
 ## History
 
 View the [changelog](https://github.com/pgvector/pgvector-dart/blob/master/CHANGELOG.md)
