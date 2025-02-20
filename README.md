@@ -126,13 +126,13 @@ var list = vec.toList();
 Create a binary vector from a list
 
 ```dart
-var vec = Bit([true, false, true])
+var vec = Bit([true, false, true]);
 ```
 
 Or a string
 
 ```dart
-var vec = Bit("101")
+var vec = Bit("101");
 ```
 
 Get a list
