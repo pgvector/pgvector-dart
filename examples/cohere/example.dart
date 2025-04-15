@@ -6,14 +6,14 @@ import 'package:postgres/postgres.dart';
 
 Future<List<dynamic>> embed(
     List<String> texts, String inputType, String apiKey) async {
-  var url = Uri.https('api.cohere.com', 'v1/embed');
+  var url = Uri.https('api.cohere.com', 'v2/embed');
   var headers = {
     'Authorization': 'Bearer ${apiKey}',
     'Content-Type': 'application/json'
   };
   var data = {
     'texts': texts,
-    'model': 'embed-english-v3.0',
+    'model': 'embed-v4.0',
     'input_type': inputType,
     'embedding_types': ['ubinary']
   };
@@ -44,7 +44,7 @@ void main() async {
 
   await connection.execute('DROP TABLE IF EXISTS documents');
   await connection.execute(
-      'CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1024))');
+      'CREATE TABLE documents (id bigserial PRIMARY KEY, content text, embedding bit(1536))');
 
   var input = [
     'The dog is barking',
